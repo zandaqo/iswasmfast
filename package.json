@@ -1,0 +1,37 @@
+{
+  "name": "iswasmfast",
+  "version": "0.0.1",
+  "description": "Performance comparison of WebAssembly, C++ Addon, and native implementations of various algorithms in Node.js.",
+  "scripts": {
+    "configure": "node-gyp configure",
+    "build:node": "node-gyp rebuild --release",
+    "build:wasm": "emcc src/wasm.cpp -s WASM=1 -O3 -o wasm.js",
+    "benchmark": "node --napi-modules benchmark.js "
+  },
+  "keywords": [
+    "wasm",
+    "webassebly",
+    "c++",
+    "napi",
+    "addon",
+    "benchmark"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zandaqo/iswasmfast.git"
+  },
+  "homepage": "https://github.com/zandaqo/iswasmfast#readme",
+  "bugs": {
+    "url": "https://github.com/zandaqo/iswasmfast/issues"
+  },
+  "author": "Maga D. Zandaqo <denelxan@gmail.com> (http://maga.name)",
+  "license": "MIT",
+  "dependencies": {
+    "node-addon-api": "0.3.4",
+    "benchmark": "^2.1.4"
+  },
+  "engines": {
+    "node": ">=8.1.0"
+  },
+  "gypfile": true
+}
