@@ -1,6 +1,7 @@
 extends: airbnb-base
 env:
   node: true
+  jest: true
 rules:
   no-underscore-dangle: 0
   no-nested-ternary: 0

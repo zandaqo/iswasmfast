@@ -5,8 +5,9 @@
   "scripts": {
     "configure": "node-gyp configure",
     "build:node": "node-gyp rebuild --release",
-    "build:wasm": "emcc -std=c++14 src/wasm.cpp -s WASM=1 -O3 -o wasm.js ",
-    "benchmark": "node --napi-modules benchmark.js "
+    "build:wasm": "emcc -std=c++14 src/wasm.cpp -s WASM=1 -O3 -o out/wasm.js",
+    "benchmark": "node --napi-modules benchmark.js",
+    "test": "node --napi-modules ./node_modules/jest/bin/jest.js --runInBand"
   },
   "keywords": [
     "wasm",
@@ -27,11 +28,17 @@
   "author": "Maga D. Zandaqo <denelxan@gmail.com> (http://maga.name)",
   "license": "MIT",
   "dependencies": {
-    "node-addon-api": "0.3.4",
-    "benchmark": "^2.1.4"
+    "benchmark": "^2.1.4",
+    "jest": "^20.0.4",
+    "node-addon-api": "0.3.4"
   },
   "engines": {
     "node": ">=8.1.0"
   },
-  "gypfile": true
+  "gypfile": true,
+  "jest": {
+    "roots": [
+      "<rootDir>/test"
+    ]
+  }
 }

@@ -3,27 +3,7 @@
 const Benchmark = require('benchmark');
 const native = require('./src/native.js');
 const addon = require('./build/Release/addon.node');
-const wasm = require('./wasm.js');
-
-const wasmLevenstein = wasm.cwrap('_levenstein', 'number', ['string', 'string']);
-const wasmFibonacci = wasm.cwrap('_fibonacci', 'number', ['number']);
-
-// Emscripten doesn't support passing array, so we manipulate it's memory directly
-const wasmArrayWrapper = (mod, cb) => {
-  return (arr) => {
-    const nBytes = arr.length * arr.BYTES_PER_ELEMENT;
-    const Ctor = arr.constructor;
-    const dataPtr = mod._malloc(nBytes);
-    const dataHeap = new Ctor(mod.HEAPF64.buffer, dataPtr, nBytes);
-    dataHeap.set(new Ctor(arr.buffer));
-    mod.ccall(cb, null, ['number', 'number'], [dataHeap.byteOffset, arr.length]);
-    const result = new Ctor(dataHeap.buffer, dataHeap.byteOffset, arr.length);
-    mod._free(dataHeap.byteOffset);
-    return result;
-  };
-};
-
-const wasmMergesort = wasmArrayWrapper(wasm, '_mergesort');
+const wasm = require('./src/wasm.js');
 
 const randomInRange = (max, min = 0) => Math.floor(Math.random() * (((max - min) + 1) + min));
 
@@ -64,7 +44,7 @@ levensteinSuite.add('Native', () => {
       stringsArray[randomInRange(99)]);
   })
   .add('WASM', () => {
-    const result = wasmLevenstein(stringsArray[randomInRange(99)],
+    const result = wasm.levenstein(stringsArray[randomInRange(99)],
       stringsArray[randomInRange(99)]);
   })
   .on('start', (event) => {
@@ -86,7 +66,7 @@ fibonacciSuite.add('Native', () => {
     const result = addon.fibonacci(randomInRange(45, 30));
   })
   .add('WASM', () => {
-    const result = wasmFibonacci(randomInRange(45, 30));
+    const result = wasm.fibonacci(randomInRange(45, 30));
   })
   .on('start', (event) => {
     console.log(event.currentTarget.name);
@@ -107,7 +87,7 @@ mergesortSuite.add('Native', () => {
     const result = addon.mergesort(generateArray(100));
   })
   .add('WASM', () => {
-    const result = wasmMergesort(generateArray(100));
+    const result = wasm.mergesort(generateArray(100));
   })
   .on('start', (event) => {
     console.log(event.currentTarget.name);
@@ -120,7 +100,7 @@ mergesortSuite.add('Native', () => {
     console.log('');
   });
 
-wasm.onRuntimeInitialized = () => {
+wasm.Module.onRuntimeInitialized = () => {
   levensteinSuite.run();
   fibonacciSuite.run();
   mergesortSuite.run();
