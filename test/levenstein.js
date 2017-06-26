@@ -1,5 +1,5 @@
 module.exports = (levenstein) => {
-  describe('Fibonacci', () => {
+  describe('Levenstein', () => {
     it('returns a Levenstein distance of two strings', () => {
       expect(levenstein('a', 'a')).toEqual(0);
       expect(levenstein('a', 'b')).toEqual(1);

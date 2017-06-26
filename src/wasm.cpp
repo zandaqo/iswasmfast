@@ -1,29 +1,28 @@
-#include <iterator>
 #include <vector>
-#include <emscripten.h>
+#include <iterator>
+#include <emscripten/bind.h>
 #include "../lib/levenstein.cpp"
 #include "../lib/fibonacci.cpp"
 #include "../lib/mergesort.cpp"
 
-extern "C" {
-  unsigned int EMSCRIPTEN_KEEPALIVE _levenstein(const char* word, const char* reference) {
-    std::string wordString(word);
-    std::string referenceString(reference);
-    return levenstein(wordString, referenceString);
-  }
-	
-  unsigned int EMSCRIPTEN_KEEPALIVE _fibonacci(const int n) {
-    return fibonacci(n);
+using namespace emscripten;
+
+void ms(val v) {
+  unsigned length = v["length"].as<unsigned>();
+  std::vector<double> vec;
+  for (int i = 0; i < length; i++) {
+    vec.push_back(v[i].as<double>());
   }
 
-  void EMSCRIPTEN_KEEPALIVE _mergesort(double *a, int length) {
-    std::vector<double> v;
-    for (int i = 0; i < length; i++) {
-      v.push_back(a[i]);
-    }
-    mergesort(std::begin(v), std::end(v));
-    for (int i = 0; i < length; i++) {
-      a[i] = v[i];
-    }
+  mergesort(std::begin(vec), std::end(vec));
+
+  for (int i = 0; i < length; i++) {
+    v.set(i, vec[i]);
   }
+}
+
+EMSCRIPTEN_BINDINGS(my_module) {
+  function("levenstein", &levenstein);
+  function("fibonacci", &fibonacci);
+  function("mergesort", &ms);
 }
