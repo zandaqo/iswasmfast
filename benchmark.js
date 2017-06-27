@@ -100,8 +100,30 @@ mergesortSuite.add('Native', () => {
     console.log('');
   });
 
+const dotproductSuite = new Benchmark.Suite('Dot Product:');
+dotproductSuite.add('Native', () => {
+  const result = native.dotproduct(generateArray(100), generateArray(100));
+})
+  .add('N-API Addon', () => {
+    const result = addon.dotproduct(generateArray(100), generateArray(100));
+  })
+  .add('WASM', () => {
+    const result = wasm.dotproduct(generateArray(100), generateArray(100));
+  })
+  .on('start', (event) => {
+    console.log(event.currentTarget.name);
+  })
+  .on('cycle', (event) => {
+    console.log(`   ${String(event.target)}`);
+  })
+  .on('complete', (event) => {
+    console.log(` Fastest is ${event.currentTarget.filter('fastest').map('name')}`);
+    console.log('');
+  });
+
 wasm.onRuntimeInitialized = () => {
   levensteinSuite.run();
   fibonacciSuite.run();
   mergesortSuite.run();
+  dotproductSuite.run();
 };
