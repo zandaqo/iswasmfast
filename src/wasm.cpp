@@ -9,11 +9,8 @@
 using namespace emscripten;
 
 void ms(val v) {
-  unsigned length = v["length"].as<unsigned>();
-  std::vector<double> vec;
-  for (int i = 0; i < length; i++) {
-    vec.push_back(v[i].as<double>());
-  }
+  auto length = v["length"].as<unsigned>();
+  std::vector<double> vec = vecFromJSArray<double>(v);
 
   mergesort(std::begin(vec), std::end(vec));
 
@@ -22,15 +19,9 @@ void ms(val v) {
   }
 }
 
-double dp(val a, val b) {
-  unsigned length = a["length"].as<unsigned>();
-  std::vector<double> v1;
-  std::vector<double> v2;
-  for (int i = 0; i < length; i++) {
-    v1.push_back(a[i].as<double>());
-    v2.push_back(b[i].as<double>());
-  }
-
+double dp(const val& a, const val& b) {
+  std::vector<double> v1 = vecFromJSArray<double>(a);
+  std::vector<double> v2 = vecFromJSArray<double>(b);
   return dotproduct(v1, v2);
 }
 

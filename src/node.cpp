@@ -27,10 +27,9 @@ Value Mergesort(const CallbackInfo& info) {
   assert(info[0].IsTypedArray());
   Float64Array a = info[0].As<Float64Array>();
   size_t s = a.ElementLength();
-  std::vector<double> v;
-  for (size_t i = 0; i < s; i++) {
-      v.push_back(a[i]);
-  }
+  auto data = a.Data();
+  std::vector<double> v(data, data + s);
+
   mergesort(std::begin(v), std::end(v));
 
   auto r = Float64Array::New(info.Env(), s);
@@ -45,12 +44,10 @@ Value Dotproduct(const CallbackInfo& info) {
   Float64Array a = info[0].As<Float64Array>();
   Float64Array b = info[1].As<Float64Array>();
   size_t s = a.ElementLength();
-  std::vector<double> v1;
-  std::vector<double> v2;
-  for (size_t i = 0; i < s; i++) {
-      v1.push_back(a[i]);
-      v2.push_back(b[i]);
-  }
+  auto dataA = a.Data();
+  auto dataB = b.Data();
+  std::vector<double> v1(dataA, dataA + s);
+  std::vector<double> v2(dataB, dataB + s);
   double product = dotproduct(v1, v2);
 
   return Number::New(info.Env(), product);
