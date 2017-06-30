@@ -17,7 +17,7 @@ const generateString = (length) => {
 };
 
 const generateArray = (length) => {
-  const result = new Float64Array(length);
+  const result = [];
   for (let i = 0; i < length; i++) {
     result[i] = Math.random();
   }

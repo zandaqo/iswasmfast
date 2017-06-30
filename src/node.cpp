@@ -8,6 +8,23 @@
 
 using namespace Napi;
 
+Value vectorToArray(const napi_env& Env, const std::vector<double>& v) {
+  auto result = Array::New(Env);
+  for (size_t i = 0; i < v.size(); i++) {
+    result[i] = Number::New(Env, v[i]);
+  }
+  return result;
+}
+
+std::vector<double> arrayToVector(const Array& a) {
+  auto length = a.Length();
+  std::vector<double> result;
+  for (size_t i = 0; i < length; i++) {
+    result.emplace_back(a[i].As<Number>().DoubleValue());
+  }
+  return result;
+}
+
 Value Levenstein(const CallbackInfo& info) {
   assert(info[0].IsString());
   std::string word = info[0].As<String>().Utf8Value();
@@ -24,31 +41,17 @@ Value Fibonacci(const CallbackInfo& info) {
 }
 
 Value Mergesort(const CallbackInfo& info) {
-  assert(info[0].IsTypedArray());
-  Float64Array a = info[0].As<Float64Array>();
-  size_t s = a.ElementLength();
-  auto data = a.Data();
-  std::vector<double> v(data, data + s);
-
+  assert(info[0].IsArray());
+  auto v = arrayToVector(info[0].As<Array>());
   mergesort(std::begin(v), std::end(v));
-
-  auto r = Float64Array::New(info.Env(), s);
-  for (size_t i = 0; i < s; i++) {
-      r[i] = v[i];
-  }
-  return r;
+  return vectorToArray(info.Env(), v);
 }
 
 Value Dotproduct(const CallbackInfo& info) {
-  assert(info[0].IsTypedArray());
-  Float64Array a = info[0].As<Float64Array>();
-  Float64Array b = info[1].As<Float64Array>();
-  size_t s = a.ElementLength();
-  auto dataA = a.Data();
-  auto dataB = b.Data();
-  std::vector<double> v1(dataA, dataA + s);
-  std::vector<double> v2(dataB, dataB + s);
-  double product = dotproduct(v1, v2);
+  assert(info[0].IsArray());
+  auto a = arrayToVector(info[0].As<Array>());
+  auto b = arrayToVector(info[1].As<Array>());
+  double product = dotproduct(a, b);
 
   return Number::New(info.Env(), product);
 }
