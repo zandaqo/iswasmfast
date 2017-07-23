@@ -5,6 +5,7 @@
 #include "../lib/fibonacci.cpp"
 #include "../lib/mergesort.cpp"
 #include "../lib/dotproduct.cpp"
+#include "../lib/fermat.cpp"
 
 using namespace emscripten;
 
@@ -30,4 +31,5 @@ EMSCRIPTEN_BINDINGS(my_module) {
   function("fibonacci", &fibonacci);
   function("mergesort", &ms);
   function("dotproduct", &dp);
+  function("fermat", &isPrime);
 }

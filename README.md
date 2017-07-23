@@ -9,26 +9,32 @@ Performance comparison of WebAssembly, C++ Addon, and native implementations of 
 > node --napi-modules benchmark.js
 
 Levenstein Distance:
-   Native x 67,110 ops/sec ±1.55% (82 runs sampled)
-   N-API Addon x 255,967 ops/sec ±0.67% (87 runs sampled)
-   WASM x 178,456 ops/sec ±0.98% (89 runs sampled)
+   Native x 70,396 ops/sec ±1.41% (82 runs sampled)
+   N-API Addon x 261,845 ops/sec ±0.82% (91 runs sampled)
+   Web Assembly x 182,224 ops/sec ±1.01% (87 runs sampled)
  Fastest is N-API Addon
 
 Fibonacci:
-   Native x 3,294,990 ops/sec ±1.65% (90 runs sampled)
-   N-API Addon x 4,438,011 ops/sec ±0.70% (89 runs sampled)
-   WASM x 7,291,569 ops/sec ±1.46% (87 runs sampled)
- Fastest is WASM
+   Native x 3,371,295 ops/sec ±0.91% (91 runs sampled)
+   N-API Addon x 4,422,750 ops/sec ±1.40% (86 runs sampled)
+   Web Assembly x 7,470,752 ops/sec ±1.39% (89 runs sampled)
+ Fastest is Web Assembly
 
 Mergesort:
-   Native x 3,450 ops/sec ±2.04% (85 runs sampled)
-   N-API Addon x 20,706 ops/sec ±0.72% (91 runs sampled)
-   WASM x 12,633 ops/sec ±2.04% (87 runs sampled)
+   Native x 3,603 ops/sec ±0.84% (87 runs sampled)
+   N-API Addon x 20,977 ops/sec ±1.00% (90 runs sampled)
+   Web Assembly x 13,058 ops/sec ±0.40% (93 runs sampled)
  Fastest is N-API Addon
 
 Dot Product:
-   Native x 97,649 ops/sec ±0.88% (90 runs sampled)
-   N-API Addon x 34,294 ops/sec ±1.17% (88 runs sampled)
-   WASM x 13,057 ops/sec ±0.61% (91 runs sampled)
+   Native x 101,445 ops/sec ±1.09% (90 runs sampled)
+   N-API Addon x 33,937 ops/sec ±0.84% (88 runs sampled)
+   Web Assembly x 13,254 ops/sec ±1.38% (92 runs sampled)
  Fastest is Native
+
+Fermat Primality Test:
+   Native x 809,201 ops/sec ±0.77% (89 runs sampled)
+   N-API Addon x 1,997,874 ops/sec ±0.87% (87 runs sampled)
+   Web Assembly x 2,639,147 ops/sec ±1.03% (90 runs sampled)
+ Fastest is Web Assembly
 ```

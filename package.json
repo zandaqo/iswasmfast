@@ -1,6 +1,6 @@
 {
   "name": "iswasmfast",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Performance comparison of WebAssembly, C++ Addon, and native implementations of various algorithms in Node.js.",
   "scripts": {
     "configure": "node-gyp configure",
@@ -40,5 +40,6 @@
     "roots": [
       "<rootDir>/test"
     ]
-  }
+  },
+  "devDependencies": {}
 }

@@ -43,7 +43,7 @@ levensteinSuite.add('Native', () => {
     const result = addon.levenstein(stringsArray[randomInRange(99)],
       stringsArray[randomInRange(99)]);
   })
-  .add('WASM', () => {
+  .add('Web Assembly', () => {
     const result = wasm.levenstein(stringsArray[randomInRange(99)],
       stringsArray[randomInRange(99)]);
   })
@@ -65,7 +65,7 @@ fibonacciSuite.add('Native', () => {
   .add('N-API Addon', () => {
     const result = addon.fibonacci(randomInRange(45, 30));
   })
-  .add('WASM', () => {
+  .add('Web Assembly', () => {
     const result = wasm.fibonacci(randomInRange(45, 30));
   })
   .on('start', (event) => {
@@ -86,7 +86,7 @@ mergesortSuite.add('Native', () => {
   .add('N-API Addon', () => {
     const result = addon.mergesort(generateArray(100));
   })
-  .add('WASM', () => {
+  .add('Web Assembly', () => {
     const result = wasm.mergesort(generateArray(100));
   })
   .on('start', (event) => {
@@ -107,8 +107,29 @@ dotproductSuite.add('Native', () => {
   .add('N-API Addon', () => {
     const result = addon.dotproduct(generateArray(100), generateArray(100));
   })
-  .add('WASM', () => {
+  .add('Web Assembly', () => {
     const result = wasm.dotproduct(generateArray(100), generateArray(100));
+  })
+  .on('start', (event) => {
+    console.log(event.currentTarget.name);
+  })
+  .on('cycle', (event) => {
+    console.log(`   ${String(event.target)}`);
+  })
+  .on('complete', (event) => {
+    console.log(` Fastest is ${event.currentTarget.filter('fastest').map('name')}`);
+    console.log('');
+  });
+
+const fermatSuite = new Benchmark.Suite('Fermat Primality Test:');
+fermatSuite.add('Native', () => {
+  const result = native.fermat(randomInRange(1000000), 3);
+})
+  .add('N-API Addon', () => {
+    const result = addon.fermat(randomInRange(1000000), 3);
+  })
+  .add('Web Assembly', () => {
+    const result = wasm.fermat(randomInRange(1000000), 3);
   })
   .on('start', (event) => {
     console.log(event.currentTarget.name);
@@ -126,4 +147,5 @@ wasm.onRuntimeInitialized = () => {
   fibonacciSuite.run();
   mergesortSuite.run();
   dotproductSuite.run();
+  fermatSuite.run();
 };

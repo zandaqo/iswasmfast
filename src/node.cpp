@@ -5,6 +5,7 @@
 #include "../lib/fibonacci.cpp"
 #include "../lib/mergesort.cpp"
 #include "../lib/dotproduct.cpp"
+#include "../lib/fermat.cpp"
 
 using namespace Napi;
 
@@ -56,11 +57,20 @@ Value Dotproduct(const CallbackInfo& info) {
   return Number::New(info.Env(), product);
 }
 
+Value Fermat(const CallbackInfo& info) {
+  assert(info[0].IsNumber());
+  unsigned int n = info[0].As<Number>().Uint32Value();
+  unsigned int k = info[1].As<Number>().Uint32Value();
+  auto result = isPrime(n, k);
+  return Boolean::New(info.Env(), result);
+}
+
 void Init(Env env, Object exports, Object module) {
-	exports.Set("levenstein", Function::New(env, Levenstein));
-	exports.Set("fibonacci", Function::New(env, Fibonacci));
-	exports.Set("mergesort", Function::New(env, Mergesort));
-	exports.Set("dotproduct", Function::New(env, Dotproduct));
+  exports.Set("levenstein", Function::New(env, Levenstein));
+  exports.Set("fibonacci", Function::New(env, Fibonacci));
+  exports.Set("mergesort", Function::New(env, Mergesort));
+  exports.Set("dotproduct", Function::New(env, Dotproduct));
+  exports.Set("fermat", Function::New(env, Fermat));
 }
 
 NODE_API_MODULE(addon, Init)

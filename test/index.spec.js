@@ -5,12 +5,14 @@ const fibonacci = require('./fibonacci.js');
 const levenstein = require('./levenstein.js');
 const mergesort = require('./mergesort.js');
 const dotproduct = require('./dotproduct.js');
+const fermat = require('./fermat.js');
 
 describe('Native', () => {
   fibonacci(native.fibonacci);
   levenstein(native.levenstein);
   mergesort(native.mergesort);
   dotproduct(native.dotproduct);
+  fermat(native.fermat);
 });
 
 describe('N-API Addon', () => {
@@ -18,4 +20,5 @@ describe('N-API Addon', () => {
   levenstein(addon.levenstein);
   mergesort(addon.mergesort);
   dotproduct(addon.dotproduct);
+  fermat(addon.fermat);
 });
