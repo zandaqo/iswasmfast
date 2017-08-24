@@ -4,4 +4,5 @@ module.exports = {
   mergesort: require('../lib/mergesort.js'),
   dotproduct: require('../lib/dotproduct.js'),
   fermat: require('../lib/fermat.js'),
+  regression: require('../lib/regression.js'),
 };

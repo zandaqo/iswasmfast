@@ -6,6 +6,7 @@
 #include "../lib/mergesort.cpp"
 #include "../lib/dotproduct.cpp"
 #include "../lib/fermat.cpp"
+#include "../lib/regression.cpp"
 
 using namespace Napi;
 
@@ -65,12 +66,22 @@ Value Fermat(const CallbackInfo& info) {
   return Boolean::New(info.Env(), result);
 }
 
+Value Regression(const CallbackInfo& info) {
+  assert(info[0].IsArray());
+  auto y = arrayToVector(info[0].As<Array>());
+  auto x = arrayToVector(info[1].As<Array>());
+  auto result = regression(y, x);
+
+  return vectorToArray(info.Env(), result);
+}
+
 void Init(Env env, Object exports, Object module) {
   exports.Set("levenstein", Function::New(env, Levenstein));
   exports.Set("fibonacci", Function::New(env, Fibonacci));
   exports.Set("mergesort", Function::New(env, Mergesort));
   exports.Set("dotproduct", Function::New(env, Dotproduct));
   exports.Set("fermat", Function::New(env, Fermat));
+  exports.Set("regression", Function::New(env, Regression));
 }
 
 NODE_API_MODULE(addon, Init)
