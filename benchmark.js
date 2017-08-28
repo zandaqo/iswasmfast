@@ -16,23 +16,15 @@ const generateString = (length) => {
   return text.join('');
 };
 
-function generateRegressionData(slope, intercept, length) {
-  const y = new Array(length);
-  const x = new Array(length);
+function generateRegressionData(slope, intercept, length, isTyped) {
+  const y = isTyped ? new Float64Array(length) : new Array(length);
+  const x = isTyped ? new Float64Array(length) : new Array(length);
   for (let i = 0; i < length; i++) {
     x[i] = Math.floor((Math.random() * 100));
     y[i] = intercept + (slope * x[i]) + Math.random();
   }
   return [y, x];
 }
-
-const generateArray = (length) => {
-  const result = [];
-  for (let i = 0; i < length; i++) {
-    result[i] = Math.random();
-  }
-  return result;
-};
 
 const stringsArray = (() => {
   const result = [];
@@ -89,48 +81,6 @@ fibonacciSuite.add('Native', () => {
     console.log('');
   });
 
-const mergesortSuite = new Benchmark.Suite('Mergesort:');
-mergesortSuite.add('Native', () => {
-  const result = native.mergesort(generateArray(100));
-})
-  .add('N-API Addon', () => {
-    const result = addon.mergesort(generateArray(100));
-  })
-  .add('Web Assembly', () => {
-    const result = wasm.mergesort(generateArray(100));
-  })
-  .on('start', (event) => {
-    console.log(event.currentTarget.name);
-  })
-  .on('cycle', (event) => {
-    console.log(`   ${String(event.target)}`);
-  })
-  .on('complete', (event) => {
-    console.log(` Fastest is ${event.currentTarget.filter('fastest').map('name')}`);
-    console.log('');
-  });
-
-const dotproductSuite = new Benchmark.Suite('Dot Product:');
-dotproductSuite.add('Native', () => {
-  const result = native.dotproduct(generateArray(100), generateArray(100));
-})
-  .add('N-API Addon', () => {
-    const result = addon.dotproduct(generateArray(100), generateArray(100));
-  })
-  .add('Web Assembly', () => {
-    const result = wasm.dotproduct(generateArray(100), generateArray(100));
-  })
-  .on('start', (event) => {
-    console.log(event.currentTarget.name);
-  })
-  .on('cycle', (event) => {
-    console.log(`   ${String(event.target)}`);
-  })
-  .on('complete', (event) => {
-    console.log(` Fastest is ${event.currentTarget.filter('fastest').map('name')}`);
-    console.log('');
-  });
-
 const fermatSuite = new Benchmark.Suite('Fermat Primality Test:');
 fermatSuite.add('Native', () => {
   const result = native.fermat(randomInRange(1000000), 3);
@@ -173,11 +123,31 @@ regressionSuite.add('Native', () => {
     console.log('');
   });
 
+const regressionSuiteTyped = new Benchmark.Suite('Simple Linear Regression with TypedArrays:');
+regressionSuiteTyped.add('Native', () => {
+  const result = native.regression(...generateRegressionData(5.5, 7.8, 1000, true));
+})
+  .add('N-API Addon', () => {
+    const result = addon.regression(...generateRegressionData(5.5, 7.8, 1000, true));
+  })
+  .add('Web Assembly', () => {
+    const result = wasm.regression(...generateRegressionData(5.5, 7.8, 1000, true));
+  })
+  .on('start', (event) => {
+    console.log(event.currentTarget.name);
+  })
+  .on('cycle', (event) => {
+    console.log(`   ${String(event.target)}`);
+  })
+  .on('complete', (event) => {
+    console.log(` Fastest is ${event.currentTarget.filter('fastest').map('name')}`);
+    console.log('');
+  });
+
 wasm.onRuntimeInitialized = () => {
   levensteinSuite.run();
   fibonacciSuite.run();
-  mergesortSuite.run();
-  dotproductSuite.run();
   fermatSuite.run();
   regressionSuite.run();
+  regressionSuiteTyped.run();
 };

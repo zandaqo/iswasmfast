@@ -3,8 +3,6 @@
 #include <napi.h>
 #include "../lib/levenstein.cpp"
 #include "../lib/fibonacci.cpp"
-#include "../lib/mergesort.cpp"
-#include "../lib/dotproduct.cpp"
 #include "../lib/fermat.cpp"
 #include "../lib/regression.cpp"
 
@@ -18,13 +16,19 @@ Value vectorToArray(const napi_env& Env, const std::vector<double>& v) {
   return result;
 }
 
-std::vector<double> arrayToVector(const Array& a) {
+std::vector<double> convertToVector (const Array& a) {
   auto length = a.Length();
   std::vector<double> result;
   for (size_t i = 0; i < length; i++) {
     result.emplace_back(a[i].As<Number>().DoubleValue());
   }
   return result;
+}
+
+std::vector<double> convertToVector (const Float64Array& a) {
+  size_t s = a.ElementLength();
+  auto data = a.Data();
+  return std::vector<double>(data, data + s);
 }
 
 Value Levenstein(const CallbackInfo& info) {
@@ -42,22 +46,6 @@ Value Fibonacci(const CallbackInfo& info) {
   return Number::New(info.Env(), result);
 }
 
-Value Mergesort(const CallbackInfo& info) {
-  assert(info[0].IsArray());
-  auto v = arrayToVector(info[0].As<Array>());
-  mergesort(std::begin(v), std::end(v));
-  return vectorToArray(info.Env(), v);
-}
-
-Value Dotproduct(const CallbackInfo& info) {
-  assert(info[0].IsArray());
-  auto a = arrayToVector(info[0].As<Array>());
-  auto b = arrayToVector(info[1].As<Array>());
-  double product = dotproduct(a, b);
-
-  return Number::New(info.Env(), product);
-}
-
 Value Fermat(const CallbackInfo& info) {
   assert(info[0].IsNumber());
   unsigned int n = info[0].As<Number>().Uint32Value();
@@ -67,9 +55,10 @@ Value Fermat(const CallbackInfo& info) {
 }
 
 Value Regression(const CallbackInfo& info) {
-  assert(info[0].IsArray());
-  auto y = arrayToVector(info[0].As<Array>());
-  auto x = arrayToVector(info[1].As<Array>());
+  auto y = info[0].IsTypedArray() ? convertToVector(info[0].As<Float64Array>()) :
+    convertToVector(info[0].As<Array>());
+  auto x = info[1].IsTypedArray() ? convertToVector(info[1].As<Float64Array>()) :
+    convertToVector(info[1].As<Array>());
   auto result = regression(y, x);
 
   return vectorToArray(info.Env(), result);
@@ -78,8 +67,6 @@ Value Regression(const CallbackInfo& info) {
 void Init(Env env, Object exports, Object module) {
   exports.Set("levenstein", Function::New(env, Levenstein));
   exports.Set("fibonacci", Function::New(env, Fibonacci));
-  exports.Set("mergesort", Function::New(env, Mergesort));
-  exports.Set("dotproduct", Function::New(env, Dotproduct));
   exports.Set("fermat", Function::New(env, Fermat));
   exports.Set("regression", Function::New(env, Regression));
 }

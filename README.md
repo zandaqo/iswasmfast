@@ -9,38 +9,32 @@ Performance comparison of WebAssembly, C++ Addon, and native implementations of 
 > node --napi-modules benchmark.js
 
 Levenstein Distance:
-   Native x 106,964 ops/sec ±1.40% (82 runs sampled)
-   N-API Addon x 240,387 ops/sec ±1.17% (88 runs sampled)
-   Web Assembly x 173,095 ops/sec ±1.04% (89 runs sampled)
+   Native x 116,722 ops/sec ±1.49% (84 runs sampled)
+   N-API Addon x 266,489 ops/sec ±1.17% (89 runs sampled)
+   Web Assembly x 186,872 ops/sec ±1.09% (89 runs sampled)
  Fastest is N-API Addon
 
 Fibonacci:
-   Native x 3,841,369 ops/sec ±0.72% (89 runs sampled)
-   N-API Addon x 3,392,103 ops/sec ±0.95% (90 runs sampled)
-   Web Assembly x 8,594,914 ops/sec ±0.69% (89 runs sampled)
+   Native x 3,915,551 ops/sec ±0.74% (91 runs sampled)
+   N-API Addon x 3,377,404 ops/sec ±1.40% (89 runs sampled)
+   Web Assembly x 8,760,322 ops/sec ±0.61% (92 runs sampled)
  Fastest is Web Assembly
 
-Mergesort:
-   Native x 3,398 ops/sec ±1.25% (87 runs sampled)
-   N-API Addon x 21,519 ops/sec ±0.74% (90 runs sampled)
-   Web Assembly x 15,379 ops/sec ±1.51% (86 runs sampled)
- Fastest is N-API Addon
-
-Dot Product:
-   Native x 212,818 ops/sec ±0.88% (87 runs sampled)
-   N-API Addon x 34,168 ops/sec ±1.25% (89 runs sampled)
-   Web Assembly x 16,753 ops/sec ±0.58% (92 runs sampled)
- Fastest is Native
-
 Fermat Primality Test:
-   Native x 1,876,136 ops/sec ±0.68% (91 runs sampled)
-   N-API Addon x 1,772,131 ops/sec ±0.91% (92 runs sampled)
-   Web Assembly x 2,817,864 ops/sec ±0.66% (88 runs sampled)
+   Native x 1,900,493 ops/sec ±0.75% (92 runs sampled)
+   N-API Addon x 1,749,936 ops/sec ±1.04% (90 runs sampled)
+   Web Assembly x 2,850,921 ops/sec ±0.86% (88 runs sampled)
  Fastest is Web Assembly
 
 Simple Linear Regression:
-   Native x 22,532 ops/sec ±1.02% (89 runs sampled)
-   N-API Addon x 4,185 ops/sec ±0.69% (88 runs sampled)
-   Web Assembly x 1,797 ops/sec ±1.61% (91 runs sampled)
+   Native x 22,969 ops/sec ±0.66% (89 runs sampled)
+   N-API Addon x 4,165 ops/sec ±1.26% (89 runs sampled)
+   Web Assembly x 1,777 ops/sec ±0.95% (91 runs sampled)
  Fastest is Native
+
+Simple Linear Regression with TypedArrays:
+   Native x 13,849 ops/sec ±1.69% (85 runs sampled)
+   N-API Addon x 17,698 ops/sec ±1.17% (88 runs sampled)
+   Web Assembly x 1,710 ops/sec ±2.00% (91 runs sampled)
+ Fastest is N-API Addon
 ```
