@@ -109,29 +109,11 @@ regressionSuite.add('Native', () => {
   .add('N-API Addon', () => {
     const result = addon.regression(...generateRegressionData(5.5, 7.8, 1000));
   })
-  .add('Web Assembly', () => {
-    const result = wasm.regression(...generateRegressionData(5.5, 7.8, 1000));
-  })
-  .on('start', (event) => {
-    console.log(event.currentTarget.name);
-  })
-  .on('cycle', (event) => {
-    console.log(`   ${String(event.target)}`);
-  })
-  .on('complete', (event) => {
-    console.log(` Fastest is ${event.currentTarget.filter('fastest').map('name')}`);
-    console.log('');
-  });
-
-const regressionSuiteTyped = new Benchmark.Suite('Simple Linear Regression with TypedArrays:');
-regressionSuiteTyped.add('Native', () => {
-  const result = native.regression(...generateRegressionData(5.5, 7.8, 1000, true));
-})
-  .add('N-API Addon', () => {
+  .add('N-API Addon using TypedArrays', () => {
     const result = addon.regression(...generateRegressionData(5.5, 7.8, 1000, true));
   })
   .add('Web Assembly', () => {
-    const result = wasm.regression(...generateRegressionData(5.5, 7.8, 1000, true));
+    const result = wasm.regression(...generateRegressionData(5.5, 7.8, 1000));
   })
   .on('start', (event) => {
     console.log(event.currentTarget.name);
@@ -149,5 +131,4 @@ wasm.onRuntimeInitialized = () => {
   fibonacciSuite.run();
   fermatSuite.run();
   regressionSuite.run();
-  regressionSuiteTyped.run();
 };
