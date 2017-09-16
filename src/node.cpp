@@ -5,6 +5,7 @@
 #include "../lib/fibonacci.cpp"
 #include "../lib/fermat.cpp"
 #include "../lib/regression.cpp"
+#include "../lib/sha256.cpp"
 
 using namespace Napi;
 
@@ -60,11 +61,18 @@ Value Regression(const CallbackInfo& info) {
   return result;
 }
 
+Value Sha256(const CallbackInfo& info) {
+  assert(info[0].IsString());
+  auto input = info[0].As<String>().Utf8Value();
+  return String::New(info.Env(), SHA256(input));
+}
+
 void Init(Env env, Object exports, Object module) {
   exports.Set("levenstein", Function::New(env, Levenstein));
   exports.Set("fibonacci", Function::New(env, Fibonacci));
   exports.Set("fermat", Function::New(env, Fermat));
   exports.Set("regression", Function::New(env, Regression));
+  exports.Set("sha256", Function::New(env, Sha256));
 }
 
 NODE_API_MODULE(addon, Init)

@@ -126,9 +126,31 @@ regressionSuite.add('Native', () => {
     console.log('');
   });
 
+const sha256Suite = new Benchmark.Suite('SHA256:');
+sha256Suite.add('Native', () => {
+  const result = native.sha256(generateString(1000));
+})
+  .add('N-API Addon', () => {
+    const result = addon.sha256(generateString(1000));
+  })
+  .add('Web Assembly', () => {
+    const result = wasm.sha256(generateString(1000));
+  })
+  .on('start', (event) => {
+    console.log(event.currentTarget.name);
+  })
+  .on('cycle', (event) => {
+    console.log(`   ${String(event.target)}`);
+  })
+  .on('complete', (event) => {
+    console.log(` Fastest is ${event.currentTarget.filter('fastest').map('name')}`);
+    console.log('');
+  });
+
 wasm.onRuntimeInitialized = () => {
   levensteinSuite.run();
   fibonacciSuite.run();
   fermatSuite.run();
   regressionSuite.run();
+  sha256Suite.run();
 };

@@ -5,6 +5,7 @@
 #include "../lib/fibonacci.cpp"
 #include "../lib/fermat.cpp"
 #include "../lib/regression.cpp"
+#include "../lib/sha256.cpp"
 
 using namespace emscripten;
 
@@ -20,8 +21,9 @@ val slr(const val& a, const val& b) {
 }
 
 EMSCRIPTEN_BINDINGS(my_module) {
-  function("levenstein", &levenstein);
-  function("fibonacci", &fibonacci);
-  function("fermat", &isPrime);
-  function("regression", &slr);
+  emscripten::function("levenstein", &levenstein);
+  emscripten::function("fibonacci", &fibonacci);
+  emscripten::function("fermat", &isPrime);
+  emscripten::function("regression", &slr);
+  emscripten::function("sha256", &SHA256);
 }
