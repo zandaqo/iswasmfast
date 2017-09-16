@@ -12,10 +12,10 @@ val slr(const val& a, const val& b) {
     auto y = vecFromJSArray<double>(a);
     auto x = vecFromJSArray<double>(b);
     auto result = regression(y, x);
-    val r(val::array());
-    r.set(0, val(result[0]));
-    r.set(1, val(result[1]));
-    r.set(2, val(result[2]));
+    val r(val::object());
+    r.set("slope", val(result.slope));
+    r.set("intercept", val(result.intercept));
+    r.set("r2", val(result.r2));
     return r;
 }
 

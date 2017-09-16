@@ -8,14 +8,6 @@
 
 using namespace Napi;
 
-Value vectorToArray(const napi_env& Env, const std::vector<double>& v) {
-  auto result = Array::New(Env);
-  for (size_t i = 0; i < v.size(); i++) {
-    result[i] = Number::New(Env, v[i]);
-  }
-  return result;
-}
-
 std::vector<double> convertToVector (const Array& a) {
   auto length = a.Length();
   std::vector<double> result;
@@ -59,9 +51,13 @@ Value Regression(const CallbackInfo& info) {
     convertToVector(info[0].As<Array>());
   auto x = info[1].IsTypedArray() ? convertToVector(info[1].As<Float64Array>()) :
     convertToVector(info[1].As<Array>());
-  auto result = regression(y, x);
-
-  return vectorToArray(info.Env(), result);
+  auto line = regression(y, x);
+  auto Env = info.Env();
+  auto result = Object::New(Env);
+  result.Set("slope", Number::New(Env, line.slope));
+  result.Set("intercept", Number::New(Env, line.intercept));
+  result.Set("r2", Number::New(Env, line.r2));
+  return result;
 }
 
 void Init(Env env, Object exports, Object module) {

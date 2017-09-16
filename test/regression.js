@@ -11,10 +11,10 @@ function generateData(slope, intercept, length, isTyped) {
 module.exports = (regression) => {
   describe('Regression', () => {
     it('does a simple linear regression on provided data', () => {
-      expect(regression(...generateData(2, 3, 100))).toEqual([2, 3, 1]);
-      expect(regression(...generateData(2, 3, 100, true))).toEqual([2, 3, 1]);
-      expect(regression(...generateData(5, 1, 100))).toEqual([5, 1, 1]);
-      expect(regression(...generateData(1, 0, 100))).toEqual([1, 0, 1]);
+      expect(regression(...generateData(2, 3, 100))).toEqual({ slope: 2, intercept: 3, r2: 1});
+      expect(regression(...generateData(2, 3, 100, true))).toEqual({ slope: 2, intercept: 3, r2: 1});
+      expect(regression(...generateData(5, 1, 100))).toEqual({ slope: 5, intercept: 1, r2: 1});
+      expect(regression(...generateData(1, 0, 100))).toEqual({ slope: 1, intercept: 0, r2: 1});
     });
   });
 };
