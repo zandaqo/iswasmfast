@@ -21,7 +21,7 @@ bool isPrime(unsigned int n, int k) {
 
   while (k>0)
   {
-    int a = 2 + std::rand() % (n-4);
+    int a = 2 + rand() % (n-4);
 
     if (power(a, n - 1, n) != 1)
       return false;

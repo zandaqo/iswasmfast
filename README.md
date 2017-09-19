@@ -4,6 +4,8 @@
 
 Performance comparison of WebAssembly, C++ Addon, and native implementations of various algorithms in Node.js.
 
+Read more in [JavaScript ♥ C++: Modern Ways to Use C++ in JavaScript Projects](https://medium.com/@zandaqo/javascript-c-modern-ways-to-use-c-in-javascript-projects-a19003c5a9ff) 
+
 ## Benchmark
 ```
 > node --napi-modules benchmark.js
@@ -39,3 +41,7 @@ SHA256:
    Web Assembly x 9,267 ops/sec ±0.72% (88 runs sampled)
  Fastest is N-API Addon
 ```
+
+## Installation
+Please note that this module requires Node.js 8.5 and above. If you want to rebuild the WebAssembly module
+yourself, you'll also need the latest Emscripten SDK installed on your machine.
