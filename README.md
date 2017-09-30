@@ -8,37 +8,36 @@ Read more in [JavaScript ♥ C++: Modern Ways to Use C++ in JavaScript Projects]
 
 ## Benchmark
 ```
-> node --napi-modules benchmark.js
+> node benchmark.js
 
-Levenstein Distance:
-   Native x 102,775 ops/sec ±1.12% (87 runs sampled)
-   N-API Addon x 209,164 ops/sec ±0.64% (90 runs sampled)
-   Web Assembly x 145,086 ops/sec ±1.15% (90 runs sampled)
+   Native x 118,593 ops/sec ±0.82% (86 runs sampled)
+   N-API Addon x 234,572 ops/sec ±0.69% (88 runs sampled)
+   Web Assembly x 168,301 ops/sec ±1.79% (87 runs sampled)
  Fastest is N-API Addon
 
 Fibonacci:
-   Native x 3,776,692 ops/sec ±0.83% (86 runs sampled)
-   N-API Addon x 3,329,576 ops/sec ±1.06% (90 runs sampled)
-   Web Assembly x 8,420,121 ops/sec ±0.82% (89 runs sampled)
+   Native x 3,762,375 ops/sec ±0.94% (90 runs sampled)
+   N-API Addon x 3,427,021 ops/sec ±1.06% (90 runs sampled)
+   Web Assembly x 8,681,072 ops/sec ±0.91% (87 runs sampled)
  Fastest is Web Assembly
 
 Fermat Primality Test:
-   Native x 1,820,068 ops/sec ±0.90% (90 runs sampled)
-   N-API Addon x 1,710,430 ops/sec ±0.66% (89 runs sampled)
-   Web Assembly x 2,781,497 ops/sec ±0.65% (88 runs sampled)
+   Native x 1,859,512 ops/sec ±0.77% (88 runs sampled)
+   N-API Addon x 1,762,158 ops/sec ±0.80% (89 runs sampled)
+   Web Assembly x 2,818,851 ops/sec ±0.66% (89 runs sampled)
  Fastest is Web Assembly
 
 Simple Linear Regression:
-   Native x 21,680 ops/sec ±2.19% (89 runs sampled)
-   N-API Addon x 4,024 ops/sec ±1.23% (90 runs sampled)
-   N-API Addon using TypedArrays x 15,094 ops/sec ±0.86% (85 runs sampled)
-   Web Assembly x 1,687 ops/sec ±0.67% (90 runs sampled)
+   Native x 225,730 ops/sec ±1.11% (85 runs sampled)
+   N-API Addon x 4,875 ops/sec ±2.45% (85 runs sampled)
+   N-API Addon using TypedArrays x 99,267 ops/sec ±0.80% (88 runs sampled)
+   Web Assembly x 1,862 ops/sec ±1.06% (84 runs sampled)
  Fastest is Native
 
 SHA256:
-   Native x 6,018 ops/sec ±1.28% (87 runs sampled)
-   N-API Addon x 12,243 ops/sec ±1.39% (85 runs sampled)
-   Web Assembly x 9,267 ops/sec ±0.72% (88 runs sampled)
+   Native x 16,274 ops/sec ±1.49% (87 runs sampled)
+   N-API Addon x 62,837 ops/sec ±1.68% (89 runs sampled)
+   Web Assembly x 32,291 ops/sec ±1.06% (88 runs sampled)
  Fastest is N-API Addon
 ```
 
