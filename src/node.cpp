@@ -67,12 +67,13 @@ Value Sha256(const CallbackInfo& info) {
   return String::New(info.Env(), SHA256(input));
 }
 
-void Init(Env env, Object exports, Object module) {
+Object Init(Env env, Object exports) {
   exports.Set("levenstein", Function::New(env, Levenstein));
   exports.Set("fibonacci", Function::New(env, Fibonacci));
   exports.Set("fermat", Function::New(env, Fermat));
   exports.Set("regression", Function::New(env, Regression));
   exports.Set("sha256", Function::New(env, Sha256));
+  return exports;
 }
 
 NODE_API_MODULE(addon, Init)

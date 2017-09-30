@@ -43,5 +43,5 @@ SHA256:
 ```
 
 ## Installation
-Please note that this module requires Node.js 8.5 and above. If you want to rebuild the WebAssembly module
+Please note that this module requires Node.js 8.6 and above. If you want to rebuild the WebAssembly module
 yourself, you'll also need the latest Emscripten SDK installed on your machine.
