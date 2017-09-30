@@ -124,6 +124,9 @@ regressionSuite.add('Native', () => {
   .add('Web Assembly', () => {
     const result = wasm.regression(...regressionData[randomInRange(9)]);
   })
+  .add('Web Assembly using TypedArrays', () => {
+    const result = wasm.regression(...regressionDataTyped[randomInRange(9)]);
+  })
   .on('start', (event) => {
     console.log(event.currentTarget.name);
   })
