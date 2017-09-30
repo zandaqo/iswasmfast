@@ -9,20 +9,20 @@
 
 using namespace emscripten;
 
-std::vector<double> vecFromTypedArray(const val &typedArray) {
-  unsigned int length = typedArray["length"].as<unsigned int>();
+std::vector<double> vecFromArray(const val &arr) {
+  unsigned int length = arr["length"].as<unsigned int>();
   std::vector<double> vec(length);
   val memory = val::module_property("buffer");
-  val memoryView = typedArray["constructor"].new_(memory, reinterpret_cast<std::uintptr_t>(vec.data()), length);
+  val memoryView = val::global("Float64Array").new_(memory, reinterpret_cast<std::uintptr_t>(vec.data()), length);
 
   vec.reserve(length);
-  memoryView.call<void>("set", typedArray);
+  memoryView.call<void>("set", arr);
   return vec;
 }
 
 val slr(const val& a, const val& b) {
-    auto y = a["buffer"].typeof().as<std::string>() == "object" ? vecFromTypedArray(a) : vecFromJSArray<double>(a);
-    auto x = b["buffer"].typeof().as<std::string>() == "object" ? vecFromTypedArray(b) : vecFromJSArray<double>(b);
+    auto y = vecFromArray(a);
+    auto x = vecFromArray(b);
     auto result = regression(y, x);
     val r(val::object());
     r.set("slope", val(result.slope));
