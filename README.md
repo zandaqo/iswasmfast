@@ -28,11 +28,11 @@ Fermat Primality Test:
  Fastest is Web Assembly
 
 Simple Linear Regression:
-   Native x 226,197 ops/sec ±0.79% (85 runs sampled)
-   N-API Addon x 4,976 ops/sec ±1.05% (88 runs sampled)
-   N-API Addon using TypedArrays x 94,794 ops/sec ±0.91% (89 runs sampled)
-   Web Assembly x 32,376 ops/sec ±1.03% (88 runs sampled)
-   Web Assembly using TypedArrays x 34,593 ops/sec ±0.98% (87 runs sampled)
+   Native x 231,221 ops/sec ±2.24% (90 runs sampled)
+   N-API Addon x 4,996 ops/sec ±3.34% (89 runs sampled)
+   N-API Addon using TypedArrays x 101,602 ops/sec ±0.94% (92 runs sampled)
+   Web Assembly x 33,115 ops/sec ±0.73% (91 runs sampled)
+   Web Assembly using TypedArrays x 35,650 ops/sec ±0.97% (92 runs sampled)
  Fastest is Native
 
 SHA256:

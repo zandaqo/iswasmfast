@@ -14,8 +14,6 @@ std::vector<double> vecFromArray(const val &arr) {
   std::vector<double> vec(length);
   val memory = val::module_property("buffer");
   val memoryView = val::global("Float64Array").new_(memory, reinterpret_cast<std::uintptr_t>(vec.data()), length);
-
-  vec.reserve(length);
   memoryView.call<void>("set", arr);
   return vec;
 }
