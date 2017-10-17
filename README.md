@@ -1,6 +1,7 @@
 # iswasmfast
 
 [![npm](https://img.shields.io/npm/v/iswasmfast.svg?style=flat-square)](https://www.npmjs.com/package/iswasmfast)
+[![Travis branch](https://img.shields.io/travis/zandaqo/iswasmfast.svg?style=flat-square)](https://travis-ci.org/zandaqo/iswasmfast)
 
 Performance comparison of WebAssembly, C++ Addon, and native implementations of various algorithms in Node.js.
 
