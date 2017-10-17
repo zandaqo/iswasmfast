@@ -1,13 +1,13 @@
 {
   "name": "iswasmfast",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Performance comparison of WebAssembly, C++ Addon, and native implementations of various algorithms in Node.js.",
   "scripts": {
     "configure": "node-gyp configure",
     "build:node": "node-gyp rebuild --release",
-    "build:wasm": "emcc --bind -std=c++14 src/wasm.cpp -s WASM=1 -O3 -o wasm.js",
+    "build:wasm": "emcc --bind -std=c++14 src/wasm.cpp -s WASM=1 -s SINGLE_FILE=1 -O3 -o bin/wasm.js",
     "benchmark": "node benchmark.js",
-    "test": "jest"
+    "test": "jest --env node"
   },
   "keywords": [
     "wasm",

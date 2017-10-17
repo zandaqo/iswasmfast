@@ -3,7 +3,7 @@
 const Benchmark = require('benchmark');
 const native = require('./src/native.js');
 const addon = require('./build/Release/addon.node');
-const wasm = require('./wasm.js');
+const wasm = require('./src/wasm.js');
 
 const randomInRange = (max, min = 0) => Math.floor(Math.random() * (((max - min) + 1) + min));
 

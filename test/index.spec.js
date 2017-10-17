@@ -1,5 +1,6 @@
 const native = require('../src/native.js');
 const addon = require('../build/Release/addon.node');
+const wasm = require('../src/wasm.js');
 
 const fibonacci = require('./fibonacci.js');
 const levenstein = require('./levenstein.js');
@@ -8,17 +9,31 @@ const regression = require('./regression.js');
 const sha256 = require('./sha256.js');
 
 describe('Native', () => {
-  fibonacci(native.fibonacci);
-  levenstein(native.levenstein);
-  fermat(native.fermat);
-  regression(native.regression);
-  sha256(native.sha256);
+  fibonacci(native);
+  levenstein(native);
+  fermat(native);
+  regression(native);
+  sha256(native);
 });
 
 describe('N-API Addon', () => {
-  fibonacci(addon.fibonacci);
-  levenstein(addon.levenstein);
-  fermat(addon.fermat);
-  regression(addon.regression);
-  sha256(addon.sha256);
+  fibonacci(addon);
+  levenstein(addon);
+  fermat(addon);
+  regression(addon);
+  sha256(addon);
+});
+
+describe('Web Assembly', () => {
+  beforeAll((done) => {
+    if (wasm.fermat) return done();
+    setTimeout(() => {
+      done();
+    }, 2000);
+  });
+  fibonacci(wasm);
+  levenstein(wasm);
+  fermat(wasm);
+  regression(wasm);
+  sha256(wasm);
 });
