@@ -4,6 +4,8 @@ const Benchmark = require('benchmark');
 const native = require('./src/native.js');
 const addon = require('./build/Release/addon.node');
 const wasm = require('./src/wasm.js');
+const crypto = require('crypto');
+const forge = require('node-forge');
 
 const randomInRange = (max, min = 0) => Math.floor(Math.random() * (((max - min) + 1) + min));
 
@@ -139,9 +141,17 @@ regressionSuite.add('Native', () => {
   });
 
 const sha256Suite = new Benchmark.Suite('SHA256:');
+const forgeDigest = forge.md.sha256.create();
 sha256Suite.add('Native', () => {
   const result = native.sha256(SHAData[randomInRange(999)]);
 })
+  .add('Forge Javascript', () => {
+    forgeDigest.update(SHAData[randomInRange(999)]);
+    const result = forgeDigest.digest().toHex();
+  })
+  .add('Node Crypto/OpenSSL', () => {
+    const result = crypto.createHmac('sha256', SHAData[randomInRange(999)]).digest('hex');
+  })
   .add('N-API Addon', () => {
     const result = addon.sha256(SHAData[randomInRange(999)]);
   })
