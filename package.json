@@ -9,6 +9,7 @@
     "benchmark": "node benchmark.js",
     "test": "jest --env node"
   },
+  "main": "index.js",
   "keywords": [
     "wasm",
     "webassebly",
