@@ -1,6 +1,6 @@
 {
   "name": "iswasmfast",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Performance comparison of WebAssembly, C++ Addon, and native implementations of various algorithms in Node.js.",
   "scripts": {
     "configure": "node-gyp configure",
@@ -29,18 +29,14 @@
   "author": "Maga D. Zandaqo <denelxan@gmail.com> (http://maga.name)",
   "license": "MIT",
   "dependencies": {
+    "node-addon-api": "^1.1.0"
+  },
+  "devDependencies": {
     "benchmark": "^2.1.4",
-    "jest": "^20.0.4",
-    "node-addon-api": "^1.0.0"
+    "jest": "^22.0.4"
   },
   "engines": {
     "node": ">=8.6.0"
   },
-  "gypfile": true,
-  "jest": {
-    "roots": [
-      "<rootDir>/test"
-    ]
-  },
-  "devDependencies": {}
+  "gypfile": true
 }
