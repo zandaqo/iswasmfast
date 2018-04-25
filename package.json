@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "benchmark": "^2.1.4",
-    "jest": "^22.2.1"
+    "jest": "^22.4.3"
   },
   "engines": {
     "node": ">=8.6.0"
