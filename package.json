@@ -5,7 +5,7 @@
   "scripts": {
     "configure": "node-gyp configure",
     "build:node": "node-gyp rebuild --release",
-    "build:wasm": "emcc --bind -std=c++14 src/wasm.cpp -s WASM=1 -s SINGLE_FILE=1 -O3 -o bin/wasm.js",
+    "build:wasm": "emcc --bind -std=c++14 src/wasm.cpp -s WASM=1 -s SINGLE_FILE=1 -O3 -o src/wasm.js",
     "benchmark": "node benchmark.js",
     "test": "jest --env node"
   },
@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "benchmark": "^2.1.4",
-    "jest": "^23.6.0"
+    "jest": "^24.4.0"
   },
   "engines": {
     "node": ">=8.6.0"
