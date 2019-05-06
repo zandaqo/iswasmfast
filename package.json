@@ -3,6 +3,9 @@
   "version": "0.0.12",
   "description": "Performance comparison of WebAssembly, C++ Addon, and native implementations of various algorithms in Node.js.",
   "scripts": {
+    "preversion": "npm test",
+    "postversion": "npm publish",
+    "postpublish": "git push origin --all; git push origin --tags",
     "configure": "node-gyp configure",
     "build:node": "node-gyp rebuild --release",
     "build:wasm": "emcc --bind -std=c++14 src/wasm.cpp -s WASM=1 -s SINGLE_FILE=1 -O3 -o src/wasm.js",
@@ -29,11 +32,11 @@
   "author": "Maga D. Zandaqo <denelxan@gmail.com> (http://maga.name)",
   "license": "MIT",
   "dependencies": {
-    "node-addon-api": "^1.6.2"
+    "node-addon-api": "^1.6.3"
   },
   "devDependencies": {
     "benchmark": "^2.1.4",
-    "jest": "^24.4.0"
+    "jest": "^24.8.0"
   },
   "engines": {
     "node": ">=8.6.0"
