@@ -1,6 +1,6 @@
 {
   "name": "iswasmfast",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Performance comparison of WebAssembly, C++ Addon, and native implementations of various algorithms in Node.js.",
   "scripts": {
     "preversion": "npm test",
