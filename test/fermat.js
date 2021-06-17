@@ -1,5 +1,5 @@
 module.exports = (instance) => {
-  it('checks if a number is a prime using the Fermat primality test', () => {
+  it("checks if a number is a prime using the Fermat primality test", () => {
     expect(instance.fermat(1, 1)).toBe(false);
     expect(instance.fermat(2, 1)).toBe(true);
     expect(instance.fermat(7, 1)).toBe(true);

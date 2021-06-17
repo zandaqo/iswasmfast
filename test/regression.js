@@ -9,7 +9,7 @@ function generateData(slope, intercept, length, isTyped) {
 }
 
 module.exports = (instance) => {
-  it('does a simple linear regression on provided data', () => {
+  it("does a simple linear regression on provided data", () => {
     expect(instance.regression(...generateData(2, 3, 100))).toEqual({
       slope: 2,
       intercept: 3,

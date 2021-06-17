@@ -32,23 +32,14 @@
   "author": "Maga D. Zandaqo <denelxan@gmail.com> (http://maga.name)",
   "license": "MIT",
   "dependencies": {
-    "node-addon-api": "^2.0.0"
+    "node-addon-api": "^4.0.0"
   },
   "devDependencies": {
     "benchmark": "^2.1.4",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-config-prettier": "^6.10.1",
-    "eslint-plugin-import": "^2.20.2",
-    "jest": "^25.3.0"
+    "jest": "^27.0.4"
   },
   "engines": {
     "node": ">=8.6.0"
   },
-  "gypfile": true,
-  "prettier": {
-    "printWidth": 100,
-    "singleQuote": true,
-    "trailingComma": "all"
-  }
+  "gypfile": true
 }

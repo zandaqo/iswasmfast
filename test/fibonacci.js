@@ -1,5 +1,5 @@
 module.exports = (instance) => {
-  it('returns a Fibonacci number of given index', () => {
+  it("returns a Fibonacci number of given index", () => {
     expect(instance.fibonacci(1)).toBe(1);
     expect(instance.fibonacci(2)).toBe(1);
     expect(instance.fibonacci(3)).toBe(2);
